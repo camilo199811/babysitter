@@ -1,21 +1,18 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, sort_child_properties_last, sized_box_for_whitespace, prefer_const_constructors, unnecessary_string_interpolations
 
-import 'dart:io';
+
 import 'dart:math';
 
 import 'package:babysitters_app/pages/home_screen.dart';
 import 'package:babysitters_app/pages/loadings/loading.dart';
-import 'package:babysitters_app/pages/navdrawer/nav.dart';
-import 'package:babysitters_app/pages/parte1/registers/registroni%C3%B1eras.dart';
-import 'package:babysitters_app/pages/parte2/Menu_Screen.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:babysitters_app/Styles/Styles.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart' as Path;
+
 
 class NewMessage extends StatefulWidget {
   NewMessage({
@@ -27,7 +24,7 @@ class NewMessage extends StatefulWidget {
 }
 
 class _NewMessageState extends State<NewMessage> {
-  Random random = new Random();
+  Random random =  Random();
   
 
   TextEditingController nameController = TextEditingController();
@@ -44,7 +41,7 @@ class _NewMessageState extends State<NewMessage> {
   String urlprofile = "";
   TextEditingController estudios = TextEditingController();
 
-  var _vista;
+  
   bool isloading = false;
   @override
   Widget build(BuildContext context) {
@@ -115,7 +112,7 @@ class _NewMessageState extends State<NewMessage> {
   CollectionReference messageNew = FirebaseFirestore.instance.collection('message');
 
   Future<void> addUser(String uid) async {
-       Random random = new Random();
+       Random random =  Random();
     int randomNumber = random.nextInt(1000);
     String add = randomNumber.toString();
     
@@ -153,7 +150,7 @@ class _NewMessageState extends State<NewMessage> {
   }
 
   Widget buttonLogin() {
-         Random random = new Random();
+         Random random = Random();
     int randomNumber = random.nextInt(1000);
     String add = randomNumber.toString();
     

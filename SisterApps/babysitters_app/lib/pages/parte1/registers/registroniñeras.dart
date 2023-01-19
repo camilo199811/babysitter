@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:babysitters_app/Styles/Styles.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:path/path.dart' as Path;
 
 class RegistroNanas extends StatefulWidget {
@@ -493,9 +494,9 @@ class _RegistroNanasState extends State<RegistroNanas> {
     DateTime? picked = await showDatePicker(
         helpText: "Fecha de nacimiento",
         context: context,
-        initialDate: DateTime.now(),
+        initialDate: DateTime(int.parse(DateFormat("y").format(DateTime.now()))-18),
         firstDate: DateTime(1990),
-        lastDate: DateTime.now());
+        lastDate: DateTime(int.parse(DateFormat("y").format(DateTime.now()))-18));
     if (picked != null) {
       setState(() {
         fecha = "${picked.day}/${picked.month}/${picked.year}";

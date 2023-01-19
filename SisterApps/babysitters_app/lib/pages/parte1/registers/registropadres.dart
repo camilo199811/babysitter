@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:babysitters_app/Styles/Styles.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:path/path.dart' as Path;
 
 class RegistroPadres extends StatefulWidget {
@@ -25,7 +26,7 @@ class _RegistroPadresState extends State<RegistroPadres> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmpasswordController = TextEditingController();
-
+  TextEditingController generoController = TextEditingController();
   TextEditingController celularController = TextEditingController();
   TextEditingController direccionController = TextEditingController();
   TextEditingController ciudadController = TextEditingController();
@@ -34,6 +35,7 @@ class _RegistroPadresState extends State<RegistroPadres> {
   String urlprofile = "";
 
   var _vista;
+  var _genero;
   bool isloading = false;
   @override
   Widget build(BuildContext context) {
@@ -122,6 +124,73 @@ class _RegistroPadresState extends State<RegistroPadres> {
                     SizedBox(
                       height: media.width * 0.05,
                     ),
+                  
+                   
+                    Text("Genero",  style: TextStyle(
+                            color: colorprincipal,
+                            fontSize: 18,
+                          ),),
+                   
+
+                    //Genero
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: media.width * 0.1, right: media.width * 0.1),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(color: colorprincipal),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                        child: DropdownButton(
+                          items: genero.map((String a) {
+                            return DropdownMenuItem(value: a, child: Text(a));
+                          }).toList(),
+                          onChanged: (_valueGenero) {
+                            setState(() {
+                              _genero = (_valueGenero != null)
+                                  ? _valueGenero
+                                  : listaCiudades.first;
+                              generoController.text = _valueGenero.toString();
+                            });
+                          },
+                          value: _genero,
+                          elevation: 8,
+                          alignment: Alignment.center,
+                          style: TextStyle(
+                            color: colorprincipal,
+                            fontSize: 18,
+                          ),
+                          icon: Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            child: Icon(
+                              Icons.all_inclusive,
+                              color: Colors.pink,
+                            ),
+                          ),
+                          borderRadius: BorderRadius.circular(25.0),
+                          isExpanded: true,
+                          dropdownColor: textColor1,
+                        ),
+                      ),
+                    ),
+                     SizedBox(
+                      height: media.width * 0.05,
+                    ),
+                  
+                     //Telefono
+                    textFieltype(
+                        "321321321",
+                        "Telefono ",
+                        Icons.phone,
+                        TextInputType.phone,
+                        true,
+                        false,
+                        true,
+                        celularController),
+                    SizedBox(
+                      height: media.width * 0.05,
+                    ),
                     //Direccion
                     textFieltype(
                         "BRR COLOMBIA",
@@ -135,23 +204,12 @@ class _RegistroPadresState extends State<RegistroPadres> {
                     SizedBox(
                       height: media.width * 0.05,
                     ),
-                    //Telefono
-                    textFieltype(
-                        "321321321",
-                        "Telefono ",
-                        Icons.phone,
-                        TextInputType.phone,
-                        true,
-                        false,
-                        true,
-                        celularController),
-                    SizedBox(
-                      height: media.width * 0.05,
-                    ),
-
-                    SizedBox(
-                      height: media.width * 0.05,
-                    ),
+                   
+                    Text("Ciudad",  style: TextStyle(
+                            color: colorprincipal,
+                            fontSize: 18,
+                          ),),
+                   
 
                     //Ciudad
                     Padding(
@@ -302,6 +360,7 @@ class _RegistroPadresState extends State<RegistroPadres> {
           'cedula': cedulaController.text,
           'email': emailController.text,
           'password': confirmpasswordController.text,
+          'genero':generoController.text,
           'celular': celularController.text,
           'direccion': direccionController.text,
           'ciudad': ciudadController.text,
@@ -362,6 +421,9 @@ class _RegistroPadresState extends State<RegistroPadres> {
                           if (!direccionController.text.isNotEmpty) {
                             snac("Debes tener una direccion de residencia");
                           } else {
+                          if (!generoController.text.isNotEmpty) {
+                            snac("Debes seleccionar tu genero");
+                          }else {
                             if (!(celularController.text.length == 10)) {
                               snac("Numero de telefono incorrecto, verificalo");
                             } else {
@@ -403,7 +465,7 @@ class _RegistroPadresState extends State<RegistroPadres> {
                                   }
                                 }
                               }
-                            }
+                            }}
                           }
                         }
                       }
@@ -484,9 +546,9 @@ class _RegistroPadresState extends State<RegistroPadres> {
     DateTime? picked = await showDatePicker(
         helpText: "Fecha de nacimiento",
         context: context,
-        initialDate: DateTime.now(),
+        initialDate: DateTime(int.parse(DateFormat("y").format(DateTime.now()))-18),
         firstDate: DateTime(1990),
-        lastDate: DateTime.now());
+        lastDate: DateTime(int.parse(DateFormat("y").format(DateTime.now()))-18));
     if (picked != null) {
       setState(() {
         fecha = "${picked.day}/${picked.month}/${picked.year}";
