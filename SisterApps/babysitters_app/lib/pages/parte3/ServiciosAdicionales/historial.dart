@@ -2,11 +2,12 @@ import 'package:babysitters_app/Styles/Styles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class HistorialPagePadre extends StatefulWidget {
-  String tipo;
+  String tipo; 
   HistorialPagePadre({super.key, required this.tipo});
 
   @override
@@ -14,6 +15,7 @@ class HistorialPagePadre extends StatefulWidget {
 }
 
 class _HistorialPagePadreState extends State<HistorialPagePadre> {
+  
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('servicios')
       .where('idUsuario', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
@@ -24,6 +26,22 @@ class _HistorialPagePadreState extends State<HistorialPagePadre> {
       .where('idNinera', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
       .where('terminado', isEqualTo: true)
       .snapshots();
+
+   
+  var uid = FirebaseAuth.instance.currentUser!.uid;
+  var datas;
+  final CollectionReference _serviceCalifi =
+      FirebaseFirestore.instance.collection("servicios");
+  String myuid='user.uid';
+
+  var valor;
+ 
+  TextEditingController calificacionEdit = TextEditingController();
+  
+
+
+  
+  
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -130,7 +148,31 @@ class _HistorialPagePadreState extends State<HistorialPagePadre> {
                                         fontSize: media.width * .03),
                                   ),
                                 ],
+                              ), 
+
+                                   Column(
+                                children: [
+                                  
+                                  GestureDetector(
+                                    onTap: openDialogCalificar,
+                                    child: Text(
+                                      (data['cancelado'] == true)
+                                          ? ""
+                                          : (data['terminado'] == true)
+                                              ? "Calificar"
+                                              : "",
+                                      style: GoogleFonts.poppins(
+                                          color: (data['cancelado'] == true)
+                                              ? Colors.red
+                                              : (data['terminado'] == true)
+                                                  ? textColor1
+                                                  : Colors.grey,
+                                          fontSize: media.width * .03),
+                                    ),
+                                  ),
+                                ],
                               ),
+                                                         
                             ],
                           )
                         ],
@@ -145,6 +187,33 @@ class _HistorialPagePadreState extends State<HistorialPagePadre> {
       },
     );
   }
+
+   Future openDialogCalificar() => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            title: const Text(
+              "Calificar Servicio",
+              style: TextStyle(
+                  fontFamily: 'omegle', fontSize: 20, color: Colors.blueAccent),
+            ),
+            content:
+             Center(child: RatingBar.builder(itemBuilder: (context,_)=>Icon(Icons.star,color: Colors.amber,),itemCount: 5,initialRating: 0,direction: Axis.horizontal,allowHalfRating: true,itemPadding: EdgeInsets.symmetric(horizontal:4 ),unratedColor:Colors.grey.shade300, onRatingUpdate: (rating){
+                               valor=rating;
+                    }),),
+
+          
+            actions: [
+              TextButton(onPressed: (){}, child: Text("Cancelar")),
+              TextButton(
+                  onPressed: () {
+                    _serviceCalifi
+                        .doc(uid)
+                        .update({'calificacion': valor});
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Calificar")),
+            ],
+          ));
 
   Future<void> infoservice(var data) {
     return showModalBottomSheet<void>(
@@ -273,8 +342,39 @@ class _HistorialPagePadreState extends State<HistorialPagePadre> {
                             fontWeight: FontWeight.w400,
                             color: colorprincipal),
                       ),
+                     
+                    
                     ],
                   ),
+                   SizedBox(
+                    height: 4,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Calificacion:",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.roboto(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                            color: colorprincipal),
+                      ),
+                      Text(
+                        "${data['calificacion']}",
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.clip,
+                        style: GoogleFonts.roboto(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: colorprincipal),
+                      ),
+                     
+                    
+                    ],
+                  ),
+
+                  
                   SizedBox(
                     height: 4,
                   ),

@@ -15,6 +15,7 @@ class ServiciosSolicitud extends StatefulWidget {
   var phd;
   var phn;
   var preciofinal;
+  
   ServiciosSolicitud(
       {required this.data, required this.phd, required this.phn});
 
@@ -34,11 +35,13 @@ class _ServiciosSolicitudState extends State<ServiciosSolicitud> {
   TextEditingController celularController = TextEditingController();
   TextEditingController precioController = TextEditingController();
   TextEditingController diffController = TextEditingController();
+  TextEditingController calificacionController=TextEditingController();
   var valp = 2.0;
   var valn = 0.0;
   var valap;
   var valan = 0.0;
   var prf;
+  var califi="Sin Calificar";
   @override
   void initState() {
     gettype();
@@ -428,7 +431,9 @@ class _ServiciosSolicitudState extends State<ServiciosSolicitud> {
   CollectionReference userdata = FirebaseFirestore.instance.collection('users');
 
   Future<void> addUser() async {
-    // Call the user's CollectionReference to add a new user
+    // Call the user's CollectionReference to add a new service
+  
+   
     var succes;
     await users.add({
       'cantidadHoras': widget.preciofinal,
@@ -448,7 +453,8 @@ class _ServiciosSolicitudState extends State<ServiciosSolicitud> {
       'DiasTotal': cantidad,
       'fechainicial': _selectedDate,
       'terminado': false,
-      'FechaCreado': DateTime.now()
+      'FechaCreado': DateTime.now(),
+      'calificacion':0
     }).then((value) async {
       Navigator.pop(context);
       Navigator.pop(context);

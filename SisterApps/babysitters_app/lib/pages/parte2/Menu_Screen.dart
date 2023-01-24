@@ -441,7 +441,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                                 data['nombre'],
                                                 data['descripcion'],
                                                 data['image_desc'],
-                                                data['c_ninos'],
+                                                data['c_ninos'].toString(),
                                                 data['precio_hora_dia'],
                                                 data['precio_hora_noche'],
                                                 data),
