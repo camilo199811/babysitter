@@ -82,14 +82,14 @@ class _HistorialUsuariosAdminState extends State<HistorialUsuariosAdmin> {
                         title: Text(data['tipo']),
                         subtitle: Row(
                           children: [
-                            Text("Cliente:" + data['NombreUsuario']),
+                            Text("Cliente:\n" + data['NombreUsuario']),
                             SizedBox(
                               width: 10,
                             ),
-                            Text("Niñera:" +
+                            Text("Niñera:\n" +
                                 "${(data['ninera'] != null) ? data['ninera'] : "Sin asignar"}"),
                        
-                              Text('  '+"Fecha:" + data['fechainicial']),
+                              Container(margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),child: Text('  '+"Fecha:\n" + data['fechainicial'])),
                             SizedBox(
                               width: 10,
                             ),

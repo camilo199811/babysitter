@@ -151,8 +151,8 @@ class _ServiciosSolicitudState extends State<ServiciosSolicitud> {
                     onSelectionChanged: _onSelectionChanged,
                     selectionMode: DateRangePickerSelectionMode.single,
                     initialSelectedRange: PickerDateRange(
-                        DateTime(int.parse(DateFormat("y").format(DateTime.now()))+18).add(const Duration(days: 1)),
-                        DateTime(int.parse(DateFormat("y").format(DateTime.now()))+18).add(const Duration(days: 1))),
+                       DateTime.now().add(const Duration(days: 1)),
+                        DateTime.now().add(const Duration(days: 1))),
                   )),
               (_range1 != null)
                   ? InkWell(
