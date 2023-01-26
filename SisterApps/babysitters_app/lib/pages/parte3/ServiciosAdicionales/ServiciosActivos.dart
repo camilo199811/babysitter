@@ -413,7 +413,33 @@ class _ServiciosActivosDState extends State<ServiciosActivosD> {
                             color: colorprincipal),
                       ),
                       Text(
-                        "${data['direccion']}/${data['municipio']}",
+                       // "${data['']}/${data['municipio']}",
+                       "${data['direccion']}",
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.clip,
+                        style: GoogleFonts.roboto(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: colorprincipal),
+                      ),
+                    ],
+                  ), SizedBox(
+                    height: 4,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Observaciones:",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.roboto(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                            color: colorprincipal),
+                      ),
+                      Text(
+                       // "${data['']}/${data['municipio']}",
+                       "${data['observaciones']}",
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.clip,
                         style: GoogleFonts.roboto(
@@ -423,6 +449,7 @@ class _ServiciosActivosDState extends State<ServiciosActivosD> {
                       ),
                     ],
                   ),
+                 
                   SizedBox(
                     height: 20,
                   ),

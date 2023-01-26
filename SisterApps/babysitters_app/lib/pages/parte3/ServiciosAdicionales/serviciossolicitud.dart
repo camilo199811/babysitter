@@ -5,10 +5,13 @@ import 'package:custom_date_range_picker/custom_date_range_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:stepper_counter_swipe/stepper_counter_swipe.dart';
 import 'package:intl/intl.dart' as nt;
 import 'package:babysitters_app/pages/parte2/Menu_Screen.dart' as mn;
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+
+import '../../parte2/Menu_Screen.dart';
 
 class ServiciosSolicitud extends StatefulWidget {
   var data;
@@ -98,6 +101,36 @@ class _ServiciosSolicitudState extends State<ServiciosSolicitud> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Colors.amber.shade50,
+          actions: <Widget>[
+            
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => (MenuScreen())),
+                );
+              },
+              child: const Text(
+                'Atras',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontFamily: 'omegle',
+                ),
+              ),
+            ),
+          ],
+          shadowColor: Colors.amberAccent,
+          title: const Text(
+            "❤️👶❤️",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 24,
+              fontFamily: 'omegle',
+            ),
+          )),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
@@ -118,8 +151,8 @@ class _ServiciosSolicitudState extends State<ServiciosSolicitud> {
                     onSelectionChanged: _onSelectionChanged,
                     selectionMode: DateRangePickerSelectionMode.single,
                     initialSelectedRange: PickerDateRange(
-                        DateTime.now().add(const Duration(days: 1)),
-                        DateTime.now().add(const Duration(days: 1))),
+                        DateTime(int.parse(DateFormat("y").format(DateTime.now()))+18).add(const Duration(days: 1)),
+                        DateTime(int.parse(DateFormat("y").format(DateTime.now()))+18).add(const Duration(days: 1))),
                   )),
               (_range1 != null)
                   ? InkWell(
@@ -230,6 +263,47 @@ class _ServiciosSolicitudState extends State<ServiciosSolicitud> {
                           fontFamily: 'omegle',
                           fontSize: 35,
                           color: colorprincipal),
+                    )
+                  : Container(),
+                         SizedBox(
+                height: 50,
+              ),
+              (_selectedDate != null && (prf != null))
+                  ? Text(
+                      "Dirección del servicio",
+                      style: TextStyle(
+                          fontFamily: 'omegle',
+                          fontSize: 15,
+                          color: Colors.blueAccent.shade200),
+                    )
+                  : Container(),
+              (_selectedDate != null && (prf != null))
+                  ? Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 5),
+                      child: TextField(
+                        maxLines: 2,
+                        textCapitalization: TextCapitalization.sentences,
+                        controller: direccionController,
+                        decoration: InputDecoration(
+                            labelText: '',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25.0)),
+                            suffixIcon:
+                                const Icon(Icons.edit, color: Colors.pink)),
+                      ),
+                    )
+                  : Container(),
+                    SizedBox(
+                height: 50,
+              ),
+              (_selectedDate != null && (prf != null))
+                  ? Text(
+                      "Observaciones",
+                      style: TextStyle(
+                          fontFamily: 'omegle',
+                          fontSize: 15,
+                          color: Colors.blueAccent.shade200),
                     )
                   : Container(),
               (_selectedDate != null && (prf != null))
@@ -384,7 +458,7 @@ class _ServiciosSolicitudState extends State<ServiciosSolicitud> {
                   SizedBox(
                     width: 400,
                     child: Text(
-                      "Direccion: ${datas['direccion']}",
+                      "Direccion:${direccionController.text}",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.roboto(
                           fontSize: 15,
@@ -451,7 +525,7 @@ class _ServiciosSolicitudState extends State<ServiciosSolicitud> {
       'cantidadenanos': valn,
       'Horas': valp,
       'celular': datas['celular'],
-      'direccion': datas['direccion'],
+      'direccion': direccionController.text,
       'fecha': fechaInicioController.text,
       'municipio': datas['ciudad'],
       'NombreUsuario': datas['name'],
@@ -524,7 +598,7 @@ class _ServiciosSolicitudState extends State<ServiciosSolicitud> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Image.asset("assets/img/icono.png"),
-              Text('¡Bienvenido,al $name!', style: GoogleFonts.pacifico()),
+              Text('¡Contrata el $name!', style: GoogleFonts.pacifico()),
             ],
           ),
         ),

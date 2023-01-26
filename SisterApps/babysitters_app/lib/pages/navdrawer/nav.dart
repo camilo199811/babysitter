@@ -87,9 +87,13 @@ class _DrawerPageState extends State<DrawerPage> {
                             datas['name'],
                             style: GoogleFonts.poppins(color: textColor1),
                           ),
-                          Text(
-                            datas['email'],
-                            style: GoogleFonts.poppins(color: textColor1),
+                          Container(
+                            height: 20,
+                            child: Text(
+                              
+                              datas['email'],
+                              style: GoogleFonts.poppins(color: textColor1),
+                            ),
                           ),
                         ],
                       ),
