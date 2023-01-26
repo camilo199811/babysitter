@@ -262,7 +262,7 @@ class _ServiciosSolicitudState extends State<ServiciosSolicitud> {
                           error = "Debes tener almenos un niño seleccionado";
                         });
                       }
-                    }, "Verifiar datos")
+                    }, "Verificar datos")
                   : Container(),
               (error != '')
                   ? Text(
@@ -359,10 +359,10 @@ class _ServiciosSolicitudState extends State<ServiciosSolicitud> {
                           color: Color.fromARGB(255, 104, 104, 104)),
                     ),
                   ),
-                  SizedBox(
+                   SizedBox(
                     width: 400,
                     child: Text(
-                      "tiempo de trabajo: ${(valp).round()} Horas",
+                      "Hora: $horainicio",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.roboto(
                           fontSize: 15,
@@ -373,7 +373,18 @@ class _ServiciosSolicitudState extends State<ServiciosSolicitud> {
                   SizedBox(
                     width: 400,
                     child: Text(
-                      "direccion: ${datas['direccion']}",
+                      "Tiempo de trabajo: ${(valp).round()} Horas",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.roboto(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                          color: Color.fromARGB(255, 104, 104, 104)),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 400,
+                    child: Text(
+                      "Direccion: ${datas['direccion']}",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.roboto(
                           fontSize: 15,

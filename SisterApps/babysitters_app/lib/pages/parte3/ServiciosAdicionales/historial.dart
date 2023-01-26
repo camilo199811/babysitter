@@ -28,13 +28,14 @@ class _HistorialPagePadreState extends State<HistorialPagePadre> {
       .snapshots();
 
    
-  var uid = FirebaseAuth.instance.currentUser!.uid;
+  var myuid = FirebaseAuth.instance.currentUser!.uid;
   var datas;
   final CollectionReference _serviceCalifi =
       FirebaseFirestore.instance.collection("servicios");
-  String myuid='user.uid';
+
 
   var valor;
+  
  
   TextEditingController calificacionEdit = TextEditingController();
   
@@ -207,7 +208,7 @@ class _HistorialPagePadreState extends State<HistorialPagePadre> {
               TextButton(
                   onPressed: () {
                     _serviceCalifi
-                        .doc(uid)
+                        .doc(myuid)
                         .update({'calificacion': valor});
                     Navigator.of(context).pop();
                   },

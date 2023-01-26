@@ -259,6 +259,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                             acceptservice(
                                                 data['tipo'],
                                                 data['NombreUsuario'],
+                                                data['Hora'],
                                                 data['Horas'],
                                                 data['celular'],
                                                 data['direccion'],
@@ -702,6 +703,7 @@ class _MenuScreenState extends State<MenuScreen> {
   Future<void> acceptservice(
       String tipo,
       String usuario,
+      var hora,
       var horas,
       String telefono,
       String direccion,
@@ -720,8 +722,9 @@ class _MenuScreenState extends State<MenuScreen> {
             child: Column(
               children: [
                 Text("Tipo: $tipo"),
-                Text("Padre: $usuario"),
+                Text("Padre: $usuario"),                
                 Text("Cantidad niños: $enanos"),
+                Text("Hora Servicio: $hora"),
                 Text("Horas contratadas: $horas"),
                 Text("Telefono de contacto: $telefono"),
                 Text("Direccion: $direccion"),
